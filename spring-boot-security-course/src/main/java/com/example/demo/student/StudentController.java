@@ -13,7 +13,6 @@ import java.util.UUID;
 @RequestMapping("api/v1/students")
 public class StudentController {
 
-//    var it = new UUID();
     private static final List<Student> STUDENTS = Arrays.asList(
       new Student(UUID.randomUUID(), "James Bond"),
       new Student(UUID.randomUUID(), "Maria Jones"),

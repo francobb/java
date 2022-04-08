@@ -1,0 +1,10 @@
+version: '3'
+services:
+    db:
+        image: 'postgres:13.1-alpine'
+        ports:
+            - 5432:5432
+        container_name: player_db
+        environment:
+         - POSTGRES_USER=player_db
+         - POSTGRES_PASSWORD=brownisgoat

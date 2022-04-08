@@ -8,8 +8,12 @@ import java.util.UUID;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, UUID> {
-    @Override
+
     List<Player> findAll();
 
-    List<Player> findAllById(UUID id);
+    default List<Player> getAll() {
+        return this.findAll();
+    }
+
+    List<Player> findPlayerById(UUID id);
 }
