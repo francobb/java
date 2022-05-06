@@ -11,9 +11,6 @@ public interface PlayerRepository extends JpaRepository<Player, UUID> {
 
     List<Player> findAll();
 
-    default List<Player> getAll() {
-        return this.findAll();
-    }
+    Player findPlayerById(UUID id);
 
-    List<Player> findPlayerById(UUID id);
 }

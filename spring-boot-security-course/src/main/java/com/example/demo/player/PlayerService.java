@@ -1,16 +1,16 @@
 package com.example.demo.player;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
+//public abstract class PlayerService {
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    @Autowired
+//    @Autowired
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
@@ -18,4 +18,9 @@ public class PlayerService {
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
+
+    public Player getPlayerById(String uuid){
+        return playerRepository.findPlayerById(UUID.fromString(uuid));
+    }
+
 }

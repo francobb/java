@@ -1,18 +1,30 @@
 package com.example.demo.player;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
+import com.example.demo.stats.Stats;
 import java.io.Serializable;
 import java.util.UUID;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
+@AllArgsConstructor
+@Builder
 @Data
 @Entity(name = "player")
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 @Setter
 @Table(name = "player")
 public class Player implements Serializable {
@@ -35,4 +47,7 @@ public class Player implements Serializable {
     @Column(name = "position", nullable = false)
     private String position;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "stats_id")
+    private Stats stats;
 }
