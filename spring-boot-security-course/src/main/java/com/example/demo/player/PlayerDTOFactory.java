@@ -14,6 +14,7 @@ public class PlayerDTOFactory {
                 .last_name(player.getLast_name())
                 .height(player.getHeight())
                 .position(player.getPosition())
+                .stats(player.getStats())
                 .build();
     }
 
@@ -24,6 +25,7 @@ public class PlayerDTOFactory {
                 .last_name(dto.getLast_name())
                 .height(dto.getHeight())
                 .position(dto.getPosition())
+                .stats(dto.getStats())
                 .build();
     }
 
