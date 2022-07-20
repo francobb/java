@@ -3,6 +3,8 @@ package main.java.com.rizzle.leetcode;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,15 +24,6 @@ public class StringSolutions {
       // loop through words;
       return String.valueOf(Arrays.stream(words).filter(this::isPalindrome).findFirst());
     }
-    public boolean isPalindrome(String wrd){
-      for (int i = 0; i < wrd.length()/2; i++) {
-        if (wrd.charAt(i) != wrd.charAt(wrd.length()-i-1)){
-          return false;
-        }
-      }
-      return true;
-    }
-
     public String firstPalindrome1(String[] words){
 //       implementation 2
       for (String word : words) {
@@ -42,9 +35,15 @@ public class StringSolutions {
       }
       return "";
     }
-
+    public boolean isPalindrome(String wrd){
+      for (int i = 0; i < wrd.length()/2; i++) {
+        if (wrd.charAt(i) != wrd.charAt(wrd.length()-i-1)){
+          return false;
+        }
+      }
+      return true;
+    }
   }
-
   /**
    *
    * @param str used to find the longest substring
@@ -94,7 +93,6 @@ public class StringSolutions {
     }
     return res;
   }
-
   public int lengthOfLongestSubstring(String s) {
     Integer[] chars = new Integer[128];
 
@@ -117,5 +115,76 @@ public class StringSolutions {
     }
 
     return res;
+  }
+  public String add_binary(String uno, String dos) {
+    String result = "";
+    StringBuilder resultBuilder = new StringBuilder();
+    int carryOver = 0;
+    int unoIndex = uno.length() - 1;
+    int dosIndex = dos.length() - 1;
+
+    while(unoIndex >= 0 || dosIndex >= 0) {
+      var unoI = String.valueOf(uno.charAt(unoIndex)).equals("1") ? 1: 0;
+      var dosI = String.valueOf(dos.charAt(dosIndex)).equals("1") ? 1: 0;
+
+      var sum = unoI + dosI + carryOver;
+      carryOver = sum > 1 ? 1 : 0;
+      var finalNum = sum % 2;
+
+      resultBuilder.insert(0, String.valueOf(finalNum));
+      result = (String.valueOf(finalNum)) + result;
+
+
+      unoIndex--;
+      dosIndex--;
+    }
+    result = resultBuilder.toString();
+
+    if (carryOver > 0){
+      result = (String.valueOf(carryOver)) + result;
+    }
+
+
+    return result.toString();
+  }
+  public static class RomanToInteger {
+
+    Map<String, Integer> map = Map.of (
+        "I",1, "V", 5,
+        "X",10, "L", 50,
+        "C",100, "D", 500,
+        "M",1000
+    );
+
+    public int romanToInt(String s) {
+    if(s.length() > 15) return 0;
+
+    int count = 0;
+    for (int i = s.length() - 1; i >= 0; i-- ) {
+      var currentRomanN = map.get(String.valueOf(s.charAt(i)));
+      if(4 * currentRomanN < count){
+        count-=currentRomanN;
+      } else {
+        count+=currentRomanN;
+      }
+    }
+
+      return count;
+    }
+  }
+  public static String longestCommonPrefix(List<String> s) {
+    if (s.size()==0) return "";
+
+    var prefix = s.get(0);
+
+    for (var i = 0; i < s.size(); i++){
+      if (s.get(i) == prefix) continue;
+
+      while(!s.get(i).contains(prefix)){
+        prefix=prefix.substring(0, s.get(i).length()-1);
+        logger.info("prefix :::: " + prefix);
+      }
+    }
+    return prefix;
   }
 }
