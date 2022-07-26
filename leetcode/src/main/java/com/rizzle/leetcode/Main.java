@@ -23,9 +23,10 @@ public class Main {
 //        "::::::: firstPalindrome(\"notapalindrome\", \"racecar\") ::::::: " +
 //            new FirstPalindrome().firstPalindrome(new String[]{"notapalindrome", "racecar"}));
 //
-//    logger.debug(
-//        "::::::: longestSubstringWithoutRepeatedCharacters(\"abba\") ::::::: "
+    logger.debug(
+        "::::::: longestSubstringWithoutRepeatedCharacters(\"abba\") ::::::: "
 //            + new StringSolutions().longestSubstringWithoutRepeatedCharacters("abbab"));
+            + new StringSolutions().longestSubstringWithoutRepeatedCharacters("abba"));
 //
 //    logger.debug(
 //        "::::::: add binary(\"1010, 1011\") ::::::: " + new StringSolutions()
@@ -46,9 +47,10 @@ public class Main {
 //        "::::::: Roman To Integer: (\"MCMXCIV \") ::::::: " + new RomanToInteger().romanToInt(
 //            "MCMXCIV"));
 //
-//    logger.info(
-//        "::::::: Longest Common Prefix: (\"dog\",\"racecar\",\"car\")  ::::::: "
-//        + StringSolutions.longestCommonPrefix(List.of("dog", "racecar", "car")));
+    logger.info(
+        "::::::: Longest Common Prefix: (\"dog\",\"racecar\",\"car\")  ::::::: "
+//        + StringSolutions.longestCommonPrefix(new String[]{"dog", "racecar", "car"}));
+        + StringSolutions.longestCommonPrefix(new String[]{"flower","flow","flight"}));
 
     logger.info("::::::: TwoSum: (2, 7, 11, 15) ::::::: "
 //        + Arrays.toString(new ArraySolutions().twoSum(new int[]{2, 7, 11, 15}, 9)));

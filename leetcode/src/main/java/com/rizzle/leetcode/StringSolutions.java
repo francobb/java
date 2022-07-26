@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -98,7 +99,6 @@ public class StringSolutions {
 
     int left = 0;
     int right = 0;
-
     int res = 0;
     while (right < s.length()) {
       char r = s.charAt(right);
@@ -107,7 +107,6 @@ public class StringSolutions {
       if (index != null && index >= left && index < right) {
         left = index + 1;
       }
-
       res = Math.max(res, right - left + 1);
 
       chars[r] = right;
@@ -148,14 +147,12 @@ public class StringSolutions {
     return result.toString();
   }
   public static class RomanToInteger {
-
     Map<String, Integer> map = Map.of (
         "I",1, "V", 5,
         "X",10, "L", 50,
         "C",100, "D", 500,
         "M",1000
     );
-
     public int romanToInt(String s) {
     if(s.length() > 15) return 0;
 
@@ -172,16 +169,16 @@ public class StringSolutions {
       return count;
     }
   }
-  public static String longestCommonPrefix(List<String> s) {
-    if (s.size()==0) return "";
+  public static String longestCommonPrefix(String[] s) {
+    if (s.length==0) return "";
 
-    var prefix = s.get(0);
+    var prefix = s[0];
 
-    for (var i = 0; i < s.size(); i++){
-      if (s.get(i) == prefix) continue;
+    for (var i = 1; i < s.length; i++){
+      if (Objects.equals(s[i], prefix)) return "";
 
-      while(!s.get(i).contains(prefix)){
-        prefix=prefix.substring(0, s.get(i).length()-1);
+      while(!s[i].contains(prefix)){
+        prefix=prefix.substring(0, prefix.length()-1);
         logger.info("prefix :::: " + prefix);
       }
     }
