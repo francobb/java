@@ -4,11 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import main.java.com.rizzle.leetcode.StringSolutions;
 import main.java.com.rizzle.leetcode.StringSolutions.FirstPalindrome;
 import main.java.com.rizzle.leetcode.StringSolutions.LongestSubstringWithoutRepetition;
+import main.java.com.rizzle.leetcode.StringSolutions.RomanToInteger;
 import org.junit.jupiter.api.Test;
 
-public class StringSolutionsTest {
-
-  StringSolutions stringSolutions = new StringSolutions();
+class StringSolutionsTest {
 
   @Test
   void testLongestLengthOfSubstring(){
@@ -33,6 +32,11 @@ public class StringSolutionsTest {
   @Test
   void testAddBinary() {
     assertEquals("10101" ,new StringSolutions().add_binary("1010", "1011"));
+  }
+
+  @Test
+  void romanToInteger() {
+    assertEquals(1994, new RomanToInteger().romanToInt("MCMXCIV"));
   }
 
 }

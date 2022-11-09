@@ -2,12 +2,11 @@ package test.java.com.rizzle.leetcode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
 import java.util.List;
 import main.java.com.rizzle.leetcode.ArraySolutions;
 import org.junit.jupiter.api.Test;
 
-class ArraySolutionsTest {
+class ArraySolutionsTests {
 
   ArraySolutions arraySolutions = new ArraySolutions();
 
@@ -38,5 +37,4 @@ class ArraySolutionsTest {
   void testTwoSum(){
     assertArrayEquals(new int[]{1,2}, new ArraySolutions().twoSum(new int[]{3, 2, 4, 15}, 6));
   }
-
 }

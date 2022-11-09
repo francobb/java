@@ -24,12 +24,6 @@ public class Main {
                   BinaryTreeSolutions.tn));
 
     }
-
-//    logger.info(
-//        "::::::: Roman To Integer: (\"MCMXCIV \") ::::::: " + new RomanToInteger().romanToInt(
-//            "MCMXCIV"));
-//
-
   }
 
 }
