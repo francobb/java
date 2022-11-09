@@ -1,5 +1,6 @@
 package main.java.com.rizzle.leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +25,7 @@ public class ArraySolutions {
 
     // loop through the array
     while (p1 < p2) {
+
       if (height[p1] <= height[p2]) { // Pointer 1 is less than Pointer 2
         if (height[p1] >= mL) { // If current is bigger than max
           mL = height[p1]; // update the max
@@ -32,6 +34,7 @@ public class ArraySolutions {
         }
         p1++; // increment pointer
       }
+
       else {
         if (height[p2] > mR) {
           mR = height[p2];
@@ -41,6 +44,7 @@ public class ArraySolutions {
         }
         p2--;
       }
+
     }
     return totalWater;
   }
@@ -57,4 +61,80 @@ public class ArraySolutions {
 
     return new int[]{};
   }
+
+  public ArrayList<List<Integer>> array_chunk(List<Integer> list, int size) {
+    var idx = 0;
+    var chunked = new ArrayList<List<Integer>>();
+
+    while (idx < list.size()){
+      chunked.add(list.subList(idx, idx+size));
+      idx+=size;
+    }
+
+    return chunked;
+  }
+
+  /**
+   *
+   * @param ary length of array
+   * @return integer
+   */
+  public int removeDuplicates(int[] ary){
+    // use two pointers;
+    var p1 = 0;
+    // loop through ary resetting the value at slow pointer
+    // if values don't equal each other
+    for (int idx = 0; idx < ary.length; idx++) {
+      if (ary[p1] != ary[idx]) {
+        ary[++p1] = ary[idx];
+      }
+    }
+
+    return ++p1;
+  }
+
+  public int removeElement(int[] ary, int val) {
+    // use two pointer technique
+    var idx = 0;
+    // loop through and replace slow pointer
+    for (int jdx = 0; jdx < ary.length; jdx++) {
+      if (ary[jdx] != val){
+        ary[idx++] = ary[jdx];
+      }
+
+    }
+
+    return idx;
+
+
+
+
+
+
+  }
+
+  public int maxArea(int[] ary){
+
+    var p1 = 0;
+    var p2 = ary.length-1;
+
+    int maxArea = 0;
+
+    while(p1 < p2) {
+      // calc the x and y
+
+      var y = Math.min(ary[p1], ary[p2]);
+      var x = p2 - p1;
+      maxArea = Math.max(maxArea, x * y);
+
+      if (ary[p1] < ary[p2]) {
+        p1++;
+      } else {
+        p2--;
+      }
+    }
+
+    return maxArea;
+  }
+
 }

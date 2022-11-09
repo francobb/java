@@ -23,10 +23,10 @@ public class StringSolutions {
      */
     public String firstPalindrome(String[] words){
       // loop through words;
-      return String.valueOf(Arrays.stream(words).filter(this::isPalindrome).findFirst());
+      return String.valueOf(Arrays.stream(words).filter(this::isPalindrome).findFirst().get());
     }
+    // implementation 2
     public String firstPalindrome1(String[] words){
-//       implementation 2
       for (String word : words) {
         var wordReverse = new StringBuilder(word).reverse().toString();
         if (word.equals(wordReverse)) {
@@ -45,76 +45,77 @@ public class StringSolutions {
       return true;
     }
   }
-  /**
-   *
-   * @param str used to find the longest substring
-   * @return longest substring
-   */
-  public int longestSubstringWithoutRepeatedCharacters(String str) {
-    var i= longestSub(str);
-    var j= this.lengthOfLongestSubstring(str);
 
-    int maxChars = 0;
-    int mover = 0;
-    int pointer = 0;
-    var map = new HashMap<Character, Integer>();
-     while(mover < str.length()) {
+  public static class LongestSubstringWithoutRepetition {
+    /**
+     *
+     * @param str used to find the longest substring
+     * @return longest substring
+     */
+    public static int longestSubstringWithoutRepeatedCharacters(String str) {
+      int maxChars = 0;
+      int mover = 0;
+      int pointer = 0;
+      var map = new HashMap<Character, Integer>();
+      while(mover < str.length()) {
 
-       if (map.containsKey(str.charAt(mover)) && pointer <= map.get(str.charAt(mover))) {
-         pointer = map.get(str.charAt(mover)) +1;
-       }
+        if (map.containsKey(str.charAt(mover)) && pointer <= map.get(str.charAt(mover))) {
+          pointer = map.get(str.charAt(mover)) +1;
+        }
 
-       map.put(str.charAt(mover), mover);
-       maxChars = Math.max(maxChars, mover - pointer +1);
-       mover++;
-     }
-
-    return maxChars;
-  }
-  public static int longestSub(String s){
-    int[] chars = new int[128];
-
-    int left = 0;
-    int right = 0;
-
-    int res = 0;
-    while (right < s.length()) {
-      char r = s.charAt(right);
-      chars[r]++;
-
-      while (chars[r] > 1) {
-        char l = s.charAt(left);
-        chars[l]--;
-        left++;
+        map.put(str.charAt(mover), mover);
+        maxChars = Math.max(maxChars, mover - pointer +1);
+        mover++;
       }
 
-      res = Math.max(res, right - left + 1);
-
-      right++;
+      return maxChars;
     }
-    return res;
-  }
-  public int lengthOfLongestSubstring(String s) {
-    Integer[] chars = new Integer[128];
+    public static int longestSub(String s){
+      int[] chars = new int[128];
 
-    int left = 0;
-    int right = 0;
-    int res = 0;
-    while (right < s.length()) {
-      char r = s.charAt(right);
+      int left = 0;
+      int right = 0;
 
-      Integer index = chars[r];
-      if (index != null && index >= left && index < right) {
-        left = index + 1;
+      int res = 0;
+      while (right < s.length()) {
+        char r = s.charAt(right);
+        chars[r]++;
+
+        while (chars[r] > 1) {
+          char l = s.charAt(left);
+          chars[l]--;
+          left++;
+        }
+
+        res = Math.max(res, right - left + 1);
+
+        right++;
       }
-      res = Math.max(res, right - left + 1);
-
-      chars[r] = right;
-      right++;
+      return res;
     }
+    public static int lengthOfLongestSubstring(String s) {
+      Integer[] chars = new Integer[128];
 
-    return res;
+      int left = 0;
+      int right = 0;
+      int res = 0;
+      while (right < s.length()) {
+        char r = s.charAt(right);
+
+        Integer index = chars[r];
+        if (index != null && index >= left && index < right) {
+          left = index + 1;
+        }
+        res = Math.max(res, right - left + 1);
+
+        chars[r] = right;
+        right++;
+      }
+
+      return res;
+    }
   }
+
   public String add_binary(String uno, String dos) {
     String result = "";
     StringBuilder resultBuilder = new StringBuilder();
@@ -143,8 +144,7 @@ public class StringSolutions {
       result = (String.valueOf(carryOver)) + result;
     }
 
-
-    return result.toString();
+    return result;
   }
   public static class RomanToInteger {
     Map<String, Integer> map = Map.of (
