@@ -3,7 +3,6 @@ package test.java.com.rizzle.leetcode;
 import static org.junit.jupiter.api.Assertions.*;
 import main.java.com.rizzle.leetcode.StringSolutions;
 import main.java.com.rizzle.leetcode.StringSolutions.FirstPalindrome;
-import main.java.com.rizzle.leetcode.StringSolutions.LongestSubstringWithoutRepetition;
 import main.java.com.rizzle.leetcode.StringSolutions.RomanToInteger;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +26,7 @@ class StringSolutionsTest {
   void testFirstPalindrome() {
     var expected = "racecar";
     assertEquals(expected, new FirstPalindrome().firstPalindrome(new String[]{"notapalindrome", "racecar"}));
+    assertEquals(expected, new FirstPalindrome().firstPalindrome1(new String[]{"notapalindrome", "racecar"}));
   }
 
   @Test
@@ -37,6 +37,11 @@ class StringSolutionsTest {
   @Test
   void romanToInteger() {
     assertEquals(1994, new RomanToInteger().romanToInt("MCMXCIV"));
+  }
+
+  @Test
+  void testHalvesAreEqual(){
+    assertFalse(new StringSolutions().halvesAreEqual("textbook"));
   }
 
 }

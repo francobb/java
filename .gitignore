@@ -1,0 +1,6 @@
+/.idea/*
+demo.iml
+.idea
+/leetcode/out/production/leetcode/
+/out/production/LeetCode/
+/logs/

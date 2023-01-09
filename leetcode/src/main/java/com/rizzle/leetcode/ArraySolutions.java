@@ -1,8 +1,11 @@
 package main.java.com.rizzle.leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 
 public class ArraySolutions {
@@ -82,14 +85,13 @@ public class ArraySolutions {
   public int removeDuplicates(int[] ary){
     // use two pointers;
     var p1 = 0;
-    // loop through ary resetting the value at slow pointer
+    // loop through ary resetting the value at p1
     // if values don't equal each other
     for (int idx = 0; idx < ary.length; idx++) {
       if (ary[p1] != ary[idx]) {
         ary[++p1] = ary[idx];
       }
     }
-
     return ++p1;
   }
 
@@ -135,6 +137,40 @@ public class ArraySolutions {
     }
 
     return maxArea;
+  }
+
+  public int[] intersect(int[] nums1, int[] nums2) {
+    List<Integer> list = new ArrayList<>();
+
+    if(nums1.length < nums2.length){
+      int[] temp = nums1;
+      nums1 = nums2;
+      nums2 = temp;
+    }
+
+    for (int cn : nums1) {
+      if (Arrays.stream(nums2).anyMatch(n -> n == cn)) {
+        list.add(cn);
+      }
+    }
+
+    return list.stream().mapToInt(x -> x).toArray();
+
+  }
+
+  public Boolean containsDuplicate(int[] ary){
+    Set<Integer> nums = new HashSet<>();
+    var counter = 0;
+
+    while (counter < ary.length) {
+      if (nums.contains(ary[counter])){
+        return true;
+      }
+      nums.add(ary[counter]);
+      counter++;
+    }
+
+    return false;
   }
 
 }

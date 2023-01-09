@@ -3,8 +3,12 @@ package test.java.com.rizzle.leetcode;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 import main.java.com.rizzle.leetcode.ArraySolutions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class ArraySolutionsTests {
 
@@ -23,7 +27,7 @@ class ArraySolutionsTests {
   }
 
   @Test
-  void testRemoveElement(){
+  void testRemoveElement() {
     assertEquals(arraySolutions.removeElement(new int[]{3,2,2,3}, 3), 2);
     assertEquals(arraySolutions.removeElement(new int[]{0,1,2,2,3,0,4,2}, 2), 5);
   }
@@ -36,5 +40,22 @@ class ArraySolutionsTests {
   @Test
   void testTwoSum(){
     assertArrayEquals(new int[]{1,2}, new ArraySolutions().twoSum(new int[]{3, 2, 4, 15}, 6));
+  }
+
+  @Test
+  void testIntersect(){
+    assertArrayEquals( new int[]{2,2},arraySolutions.intersect(new int[]{1,2,2,1}, new int[]{2,2}));
+  }
+
+  @ParameterizedTest
+  @MethodSource("testContainsDuplicate")
+  void testContainsDuplicate(int[] value){
+    assertTrue(arraySolutions.containsDuplicate(value));
+  }
+
+  public static Stream<Arguments> testContainsDuplicate() {
+    return Stream.of(
+        Arguments.of(new int[]{1,1,1,3,3,4,3,2,4,2}),
+        Arguments.of((Object) new int[]{1,2,3,1}));
   }
 }

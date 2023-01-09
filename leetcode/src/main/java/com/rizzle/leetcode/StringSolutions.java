@@ -1,9 +1,7 @@
 package main.java.com.rizzle.leetcode;
 
-
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
@@ -23,9 +21,8 @@ public class StringSolutions {
      */
     public String firstPalindrome(String[] words){
       // loop through words;
-      return String.valueOf(Arrays.stream(words).filter(this::isPalindrome).findFirst().get());
+      return Arrays.stream(words).filter(this::isPalindrome).findFirst().orElse(null);
     }
-    // implementation 2
     public String firstPalindrome1(String[] words){
       for (String word : words) {
         var wordReverse = new StringBuilder(word).reverse().toString();
@@ -117,7 +114,7 @@ public class StringSolutions {
   }
 
   public String add_binary(String uno, String dos) {
-    String result = "";
+    StringBuilder result = new StringBuilder();
     StringBuilder resultBuilder = new StringBuilder();
     int carryOver = 0;
     int unoIndex = uno.length() - 1;
@@ -131,20 +128,20 @@ public class StringSolutions {
       carryOver = sum > 1 ? 1 : 0;
       var finalNum = sum % 2;
 
-      resultBuilder.insert(0, String.valueOf(finalNum));
-      result = (String.valueOf(finalNum)) + result;
+      resultBuilder.insert(0, finalNum);
+      result.insert(0, finalNum);
 
 
       unoIndex--;
       dosIndex--;
     }
-    result = resultBuilder.toString();
+    result = new StringBuilder(resultBuilder.toString());
 
     if (carryOver > 0){
-      result = (String.valueOf(carryOver)) + result;
+      result.insert(0, carryOver);
     }
 
-    return result;
+    return result.toString();
   }
   public static class RomanToInteger {
     Map<String, Integer> map = Map.of (
@@ -183,5 +180,14 @@ public class StringSolutions {
       }
     }
     return prefix;
+  }
+
+  // todo
+  public Boolean halvesAreEqual(String s) {
+    // slice each half
+
+    // loop through each half
+
+    return false;
   }
 }
