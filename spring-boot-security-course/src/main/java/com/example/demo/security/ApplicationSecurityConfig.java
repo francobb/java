@@ -36,11 +36,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "index", "css/*", "js/*").permitAll()
                 .antMatchers("/api/**").hasRole(BOSS.name())
-//                .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAnyRole(ApplicationUserRole.CEO.name(), ApplicationUserRole.BOSS.name())
-//                .antMatchers(HttpMethod.POST,"/management/api/**").hasRole(ApplicationUserRole.CEO.name())
-//                .antMatchers(HttpMethod.PUT,"/management/api/**").hasRole(ApplicationUserRole.CEO.name())
-//                .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ApplicationUserRole.WORKER.name(), ApplicationUserRole.CEO.name(),
-//                BOSS.name())
                 .anyRequest()
                 .authenticated()
                 .and()
