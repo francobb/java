@@ -46,8 +46,9 @@ public class ManagerController {
     System.out.print(player);
   }
 
-  @DeleteMapping(path = "{ playerId }")
+  @DeleteMapping(path = "/{playerId}")
   public static void deletePlayer(@PathVariable("playerId") String playerId) {
+    PLAIRS.stream().filter(player -> playerId.equals(player.getId().toString())).findFirst();
     System.out.println("playerId = " + playerId);
   }
 

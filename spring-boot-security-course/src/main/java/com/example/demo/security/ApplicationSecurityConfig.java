@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -32,19 +33,23 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "index", "css/*", "js/*").permitAll()
-                .antMatchers("/api/**").hasRole(BOSS.name())
-//                .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAnyRole(ApplicationUserRole.CEO.name(), ApplicationUserRole.BOSS.name())
-//                .antMatchers(HttpMethod.POST,"/management/api/**").hasRole(ApplicationUserRole.CEO.name())
-//                .antMatchers(HttpMethod.PUT,"/management/api/**").hasRole(ApplicationUserRole.CEO.name())
-//                .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ApplicationUserRole.WORKER.name(), ApplicationUserRole.CEO.name(),
-//                BOSS.name())
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+            .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .and() //HERE !  Defaults XSRF-TOKEN as cookie name and X-XSRF-TOKEN as header name
+
+//        .csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/", "index", "css/*", "js/*").permitAll()
+//      .antMatchers("/api/**").hasRole(BOSS.name())
+//      .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(ApplicationUserPermission.BOSS_WRITE.getPermission().toLowerCase())
+        .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAnyRole(ApplicationUserPermission.BOSS_WRITE.getPermission())
+        .antMatchers(HttpMethod.DELETE,"/api/**").hasAnyRole(ApplicationUserRole.CEO.name(), ApplicationUserRole.BOSS.name())
+//      .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ApplicationUserRole.WORKER.name(), ApplicationUserRole.CEO.name(),
+//       BOSS.name())
+        .anyRequest()
+        .authenticated()
+        .and()
+        .httpBasic();
     }
 
     @Override
@@ -54,20 +59,20 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 User.builder()
                     .username("june")
                     .password(passwordEncoder.encode("baller12"))
-//                    .roles(ApplicationUserRole.BOSS.name())
-                    .authorities(BOSS.getGrantedAuthorites())
+                    .roles(ApplicationUserRole.BOSS.name())
+                    .authorities(BOSS.getGrantedAuthorities())
                 .build(),
                 User.builder()
                     .username("yune")
                     .password(passwordEncoder.encode("baller12"))
 //                    .roles(ApplicationUserRole.WORKER.name())
-                    .authorities(WORKER.getGrantedAuthorites())
+                    .authorities(WORKER.getGrantedAuthorities())
                 .build(),
                 User.builder()
                     .username("chapo")
                     .password(passwordEncoder.encode("baller12"))
 //                    .roles(ApplicationUserRole.CEO.name())
-                    .authorities(CEO.getGrantedAuthorites())
+                    .authorities(CEO.getGrantedAuthorities())
                 .build()
         );
     }
