@@ -6,15 +6,13 @@ public class Sandbox {
 
 interface Message {
 
-
-//  protected String sender;
-//  protected String dest;
-
   static String getSender(){
     return "";
   };
   String getDestination();
-  String getText();
+  default String getTextSuper(){
+    return "text mane";
+  };
 }
 
 abstract class BaseMessage implements Message {
@@ -24,14 +22,13 @@ abstract class BaseMessage implements Message {
     sender = sn;
     dest = dst;
   }
-  static String getSender(){
-    return "";
-  };
 
   @Override
   public String getDestination(){
     return "";
   }
+
+  abstract String whoDidIt();
 }
 
 class CipherMessage extends BaseMessage {
@@ -40,11 +37,25 @@ class CipherMessage extends BaseMessage {
 
   public CipherMessage(String sender, String destination, String text) {
     super(sender, destination);
-//    this.text = CryptoUtils.encrypt(text); // just an example, suppose it's OK
+    this.text = this.whoDidIt();
+    this.readAllTexts();
+    super.getTextSuper();
+
   }
 
   @Override
-  public String getText() {
+  public String getTextSuper() {
     return text;
+  }
+
+  @Override
+  String whoDidIt() {
+    return "it was me";
+  }
+
+  private void readAllTexts(){
+    System.out.println(this.getTextSuper());
+    System.out.println(this.getDestination());
+    System.out.println(this.whoDidIt());
   }
 }
